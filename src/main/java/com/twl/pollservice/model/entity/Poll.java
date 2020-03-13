@@ -16,6 +16,4 @@ public class Poll {
 
     @NotBlank(message = "Field 'description' is required!")
     private String description;
-
-    private PollSession session;
 }
