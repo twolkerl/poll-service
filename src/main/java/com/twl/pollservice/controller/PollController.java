@@ -4,6 +4,7 @@ import com.twl.pollservice.exception.NotFoundException;
 import com.twl.pollservice.model.entity.Poll;
 import com.twl.pollservice.model.entity.PollSession;
 import com.twl.pollservice.service.PollService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class PollController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     private Poll save(@RequestBody Poll poll) {
         return service.save(poll);
     }

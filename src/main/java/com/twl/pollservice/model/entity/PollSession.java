@@ -9,10 +9,13 @@ import java.time.LocalDateTime;
 @Data
 public class PollSession {
 
-    @NotNull(message = "Session start time is required!")
+    @NotNull(message = "Field 'sessionStart' is required!")
     private LocalDateTime sessionStart;
+
     private LocalDateTime sessionEnd;
-    @NotNull(message = "Session status is required!")
+
+    @NotNull(message = "Field 'status' is required!")
     private SessionStatus status;
+
     private boolean result;
 }

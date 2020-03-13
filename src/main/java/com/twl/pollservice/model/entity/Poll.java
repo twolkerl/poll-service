@@ -10,9 +10,12 @@ public class Poll {
 
     @Id
     private String id;
-    @NotBlank(message = "Poll title is required!")
+
+    @NotBlank(message = "Field 'title' is required!")
     private String title;
-    @NotBlank(message = "Poll description is required!")
+
+    @NotBlank(message = "Field 'description' is required!")
     private String description;
+
     private PollSession session;
 }
