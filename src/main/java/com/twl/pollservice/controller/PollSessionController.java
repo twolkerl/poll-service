@@ -5,6 +5,8 @@ import com.twl.pollservice.service.PollSessionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/poll-session")
 public class PollSessionController {
@@ -17,7 +19,7 @@ public class PollSessionController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PollSession save(@RequestBody PollSession pollSession) throws Exception {
+    public PollSession save(@RequestBody @Valid PollSession pollSession) throws Exception {
         return service.save(pollSession);
     }
 

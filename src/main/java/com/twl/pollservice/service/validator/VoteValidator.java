@@ -28,8 +28,10 @@ public class VoteValidator {
 
         Optional<PollSession> pollSession = pollSessionRepository.findByPollId(poll.getId());
 
-        if (!pollSession.isPresent() || (pollSession.isPresent()
-                && LocalDateTime.now().isAfter(pollSession.get().getSessionEnd()))) {
+        if (!pollSession.isPresent()
+                || LocalDateTime.now().isAfter(pollSession.get().getSessionEnd())
+                || LocalDateTime.now().isBefore(pollSession.get().getSessionStart())) {
+
             throw new BusinessException("Voting session closed for given poll.");
         }
 

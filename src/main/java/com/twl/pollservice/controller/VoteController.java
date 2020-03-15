@@ -5,6 +5,7 @@ import com.twl.pollservice.service.VoteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class VoteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Vote save(@RequestBody Vote vote) throws Exception {
+    public Vote save(@RequestBody @Valid Vote vote) throws Exception {
         return service.save(vote);
     }
 

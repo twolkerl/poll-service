@@ -6,6 +6,7 @@ import com.twl.pollservice.service.PollService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class PollController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    private Poll save(@RequestBody Poll poll) {
+    private Poll save(@RequestBody @Valid Poll poll) {
         return service.save(poll);
     }
 
