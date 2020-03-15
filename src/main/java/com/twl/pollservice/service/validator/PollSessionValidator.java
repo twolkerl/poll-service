@@ -14,18 +14,20 @@ public class PollSessionValidator {
         this.repository = repository;
     }
 
-    public void validateDateRange(PollSession pollSession) throws BusinessException {
+    public boolean validateDateRange(PollSession pollSession) throws BusinessException {
         if (pollSession.getSessionStart().isAfter(pollSession.getSessionEnd())) {
             throw new BusinessException("Session end must be after session start!");
         }
+        return true;
     }
 
-    public void validateSessionExists(PollSession pollSession) throws BusinessException {
+    public boolean validateSessionExists(PollSession pollSession) throws BusinessException {
 
         String pollId = pollSession.getPoll().getId();
 
         if (repository.findByPollId(pollId).isPresent()) {
             throw new BusinessException("A session have already been created for given poll.");
         }
+        return true;
     }
 }
