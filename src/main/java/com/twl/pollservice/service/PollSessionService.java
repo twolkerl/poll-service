@@ -4,6 +4,7 @@ import com.twl.pollservice.exception.BusinessException;
 import com.twl.pollservice.exception.NotFoundException;
 import com.twl.pollservice.model.entity.PollSession;
 import com.twl.pollservice.repository.PollSessionRepository;
+import com.twl.pollservice.service.validator.PollSessionValidator;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,9 +16,11 @@ public class PollSessionService {
     private static final int SIXTY_SECONDS = 60;
 
     private final PollSessionRepository repository;
+    private final PollSessionValidator validator;
 
-    public PollSessionService(PollSessionRepository repository) {
+    public PollSessionService(PollSessionRepository repository, PollSessionValidator validator) {
         this.repository = repository;
+        this.validator = validator;
     }
 
     public PollSession save(PollSession pollSession) throws BusinessException {
@@ -36,7 +39,7 @@ public class PollSessionService {
     }
 
     private void validateAndPrepare(PollSession pollSession) throws BusinessException {
-        validateSessionExists(pollSession);
+        validator.validateSessionExists(pollSession);
 
         if (Objects.isNull(pollSession.getSessionEnd())) {
 
@@ -44,22 +47,7 @@ public class PollSessionService {
             pollSession.setSessionEnd(end);
         } else {
 
-            validateDateRange(pollSession);
-        }
-    }
-
-    private void validateDateRange(PollSession pollSession) throws BusinessException {
-        if (pollSession.getSessionStart().isAfter(pollSession.getSessionEnd())) {
-            throw new BusinessException("Session end must be after session start!");
-        }
-    }
-
-    private void validateSessionExists(PollSession pollSession) throws BusinessException {
-
-        String pollId = pollSession.getPoll().getId();
-
-        if (repository.findByPollId(pollId).isPresent()) {
-            throw new BusinessException("A session have already been created for given poll.");
+            validator.validateDateRange(pollSession);
         }
     }
 }

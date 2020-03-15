@@ -1,5 +1,6 @@
 package com.twl.pollservice.service;
 
+import com.twl.pollservice.exception.NotFoundException;
 import com.twl.pollservice.model.entity.Poll;
 import com.twl.pollservice.repository.PollRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -52,36 +54,30 @@ class PollServiceTest {
     @Test
     void shouldSuccessFindAll() {
 
-        when(service.findAll()).thenReturn(Collections.singletonList(mockPoll()));
+        when(repository.findAll()).thenReturn(Collections.singletonList(mockPoll()));
         assertFalse(service.findAll().isEmpty());
     }
 
     @Test
     void shouldFailFindAll() {
 
-        when(service.findAll()).thenReturn(new ArrayList<>());
+        when(repository.findAll()).thenReturn(new ArrayList<>());
         assertTrue(service.findAll().isEmpty());
     }
 
-    //FIXME consertar testes abaixo
-//    @Test
-//    void shouldSuccessFindOne() throws Exception {
-//
-//        when(service.findOne("1")).thenReturn(mockPoll());
-//
-//        service.save(mockPoll());
-//
-//        Poll poll = service.findOne("1");
-//
-//        assertEquals(poll, mockPoll());
-//    }
-//
-//    @Test
-//    void shouldFailFindOne() throws Exception {
-//
-//        when(service.findOne("2")).thenThrow(NotFoundException.class);
-//        assertThrows(NotFoundException.class, () -> service.findOne("2"));
-//    }
+    @Test
+    void shouldSuccessFindOne() throws Exception {
+
+        when(repository.findById("1")).thenReturn(Optional.of(mockPoll()));
+        assertEquals(service.findOne("1"), mockPoll());
+    }
+
+    @Test
+    void shouldFailFindOne() throws Exception {
+
+        when(repository.findById("2")).thenReturn(Optional.empty());
+        assertThrows(NotFoundException.class, () -> service.findOne("2"));
+    }
 
     private Poll mockPoll() {
         return new Poll("1", "Test", "TestPoll");
