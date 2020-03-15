@@ -19,7 +19,7 @@ public class VoteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Vote save(@RequestBody Vote vote) {
+    public Vote save(@RequestBody Vote vote) throws Exception {
         return service.save(vote);
     }
 

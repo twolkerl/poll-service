@@ -22,6 +22,20 @@ public class PollSessionService {
 
     public PollSession save(PollSession pollSession) throws BusinessException {
 
+        validateAndPrepare(pollSession);
+        return repository.save(pollSession);
+    }
+
+    public PollSession findByPollId(String pollId) throws NotFoundException {
+        return repository.findByPollId(pollId).orElseThrow(NotFoundException::new);
+    }
+
+    public void delete(String id) throws NotFoundException {
+        PollSession pollSession = repository.findById(id).orElseThrow(NotFoundException::new);
+        repository.delete(pollSession);
+    }
+
+    private void validateAndPrepare(PollSession pollSession) throws BusinessException {
         validateSessionExists(pollSession);
 
         if (Objects.isNull(pollSession.getSessionEnd())) {
@@ -32,12 +46,6 @@ public class PollSessionService {
 
             validateDateRange(pollSession);
         }
-
-        return repository.save(pollSession);
-    }
-
-    public PollSession findByPollId(String pollId) throws NotFoundException {
-        return repository.findByPollId(pollId).orElseThrow(NotFoundException::new);
     }
 
     private void validateDateRange(PollSession pollSession) throws BusinessException {

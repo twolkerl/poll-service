@@ -25,4 +25,10 @@ public class PollSessionController {
     public PollSession getByPollId(@PathVariable String pollId) throws Exception {
         return service.findByPollId(pollId);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable String id) throws Exception {
+        service.delete(id);
+    }
 }
