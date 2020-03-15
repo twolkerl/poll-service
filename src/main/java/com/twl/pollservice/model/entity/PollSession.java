@@ -19,9 +19,9 @@ public class PollSession {
     private LocalDateTime sessionEnd;
 
     @NotNull(message = "Field 'status' is required!")
-    private SessionStatus status;
+    private SessionStatus status = SessionStatus.OPEN;
 
-    private boolean result;
+    private Boolean result;
 
     @NotNull(message = "Field 'poll' is required!")
     private Poll poll;

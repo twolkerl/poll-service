@@ -17,7 +17,12 @@ public class PollSessionController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public PollSession save(@RequestBody PollSession pollSession) {
+    public PollSession save(@RequestBody PollSession pollSession) throws Exception {
         return service.save(pollSession);
+    }
+
+    @GetMapping("/poll/{pollId}")
+    public PollSession getByPollId(@PathVariable String pollId) throws Exception {
+        return service.findByPollId(pollId);
     }
 }
