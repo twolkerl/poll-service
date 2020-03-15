@@ -2,7 +2,6 @@ package com.twl.pollservice.controller;
 
 import com.twl.pollservice.exception.NotFoundException;
 import com.twl.pollservice.model.entity.Poll;
-import com.twl.pollservice.model.entity.PollSession;
 import com.twl.pollservice.service.PollService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -35,10 +34,5 @@ public class PollController {
         return service
                 .findOne(id)
                 .orElseThrow(() -> new NotFoundException("Poll not found."));
-    }
-
-    @PatchMapping("/{id}")
-    private Poll openPollSession(@PathVariable String id, @RequestBody PollSession session) throws Exception {
-        return service.openSession(id, session);
     }
 }
