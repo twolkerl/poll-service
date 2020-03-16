@@ -5,8 +5,6 @@ import com.twl.pollservice.repository.VoteRepository;
 import com.twl.pollservice.service.validator.VoteValidator;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class VoteService {
 
@@ -21,10 +19,5 @@ public class VoteService {
     public Vote save(Vote vote) throws Exception {
         validator.validate(vote);
         return repository.save(vote);
-    }
-
-    // TODO placeholder method - test purpose
-    public List<Vote> findAll() {
-        return repository.findAll();
     }
 }

@@ -64,6 +64,8 @@ public class PollSessionService {
         long falseCount = countByVoteOption(votes, Boolean.FALSE);
         PollResult result = setPollResult(trueCount, falseCount);
 
+        // TODO Kafka/Rabbit para enviar mensagem quando a sessão estiver encerrada
+
         return PollResultResponse.builder()
                 .result(result)
                 .status(status)

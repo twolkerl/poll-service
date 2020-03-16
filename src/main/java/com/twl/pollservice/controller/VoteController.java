@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/vote")
@@ -22,11 +21,5 @@ public class VoteController {
     @ResponseStatus(HttpStatus.CREATED)
     public Vote save(@RequestBody @Valid Vote vote) throws Exception {
         return service.save(vote);
-    }
-
-    // TODO placeholder method - test purpose
-    @GetMapping
-    public List<Vote> getAll() {
-        return service.findAll();
     }
 }
