@@ -5,7 +5,7 @@ import com.twl.pollservice.service.VoteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/vote")
@@ -19,13 +19,7 @@ public class VoteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Vote save(@RequestBody Vote vote) {
+    public Vote save(@RequestBody @Valid Vote vote) throws Exception {
         return service.save(vote);
-    }
-
-    // TODO placeholder method - test purpose
-    @GetMapping
-    public List<Vote> getAll() {
-        return service.findAll();
     }
 }
