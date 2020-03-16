@@ -1,6 +1,5 @@
 package com.twl.pollservice.model.entity;
 
-import com.twl.pollservice.model.enums.SessionStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,11 +20,6 @@ public class PollSession {
     private LocalDateTime sessionStart;
 
     private LocalDateTime sessionEnd;
-
-    @NotNull(message = "Field 'status' is required!")
-    private SessionStatus status = SessionStatus.OPEN;
-
-    private Boolean result;
 
     @NotNull(message = "Field 'poll' is required!")
     private Poll poll;

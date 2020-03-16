@@ -3,8 +3,8 @@ package com.twl.pollservice.service;
 import com.twl.pollservice.exception.BusinessException;
 import com.twl.pollservice.model.entity.Poll;
 import com.twl.pollservice.model.entity.PollSession;
-import com.twl.pollservice.model.enums.SessionStatus;
 import com.twl.pollservice.repository.PollSessionRepository;
+import com.twl.pollservice.repository.VoteRepository;
 import com.twl.pollservice.service.validator.PollSessionValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -29,13 +30,16 @@ class PollSessionServiceTest {
     @Mock
     private PollSessionValidator validator;
 
+    @Mock
+    private VoteRepository voteRepository;
+
     @InjectMocks
     private PollSessionService service;
 
     @BeforeEach
     void setUp() {
         initMocks(this);
-        service = new PollSessionService(repository, validator);
+        service = new PollSessionService(repository, validator, voteRepository);
     }
 
     @Test
@@ -96,8 +100,6 @@ class PollSessionServiceTest {
         return new PollSession("1",
                 LocalDateTime.now(),
                 LocalDateTime.now().plusDays(1),
-                SessionStatus.OPEN,
-                Boolean.TRUE,
                 mockPoll());
     }
 }
